@@ -1,27 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
->
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#080808">
-
 <title>WASTELAND — SURVIVAL</title>
 
-<link rel="stylesheet" href="style.css">
-
 <style>
-
-/* =========================================================
-   BASE
-========================================================= */
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -29,16 +14,21 @@
     -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+:root{
+    --bg:#070707;
+    --panel:#101010;
+    --panel2:#151515;
+    --line:#292929;
+    --text:#eee;
+    --muted:#777;
+}
+
+html,body{
     width:100%;
     min-height:100%;
-    background:#070707;
-    color:#eee;
-    font-family:
-        Inter,
-        Arial,
-        sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,sans-serif;
 }
 
 body{
@@ -46,20 +36,16 @@ body{
 }
 
 button{
-    font:inherit;
     color:inherit;
+    font:inherit;
     border:0;
     cursor:pointer;
+    user-select:none;
 }
 
 button:active{
-    transform:scale(.97);
+    transform:scale(.96);
 }
-
-
-/* =========================================================
-   APP
-========================================================= */
 
 .app{
     width:100%;
@@ -67,715 +53,415 @@ button:active{
     min-height:100vh;
     margin:auto;
     background:#0b0b0b;
-    position:relative;
 }
 
+/* TOP */
 
-/* =========================================================
-   TOP BAR
-========================================================= */
-
-.topbar{
-    position:sticky;
-    top:0;
-    z-index:100;
-
+.top{
+    height:55px;
+    padding:8px 12px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    min-height:54px;
-    padding:8px 12px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #151515,
-            #0d0d0d
-        );
-
-    border-bottom:1px solid #292929;
+    background:#111;
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    z-index:50;
 }
 
 .logo{
+    font-size:15px;
     font-weight:900;
     letter-spacing:1px;
-    font-size:15px;
 }
 
 .logo small{
     display:block;
-    color:#777;
+    color:#666;
     font-size:8px;
     letter-spacing:2px;
-    margin-top:2px;
+    margin-top:3px;
 }
 
-.balance{
+.money{
     text-align:right;
-}
-
-.balance-value{
     font-weight:900;
     font-size:14px;
 }
 
-.balance small{
-    color:#777;
+.money small{
+    display:block;
+    color:#666;
     font-size:8px;
+    font-weight:400;
 }
 
-
-/* =========================================================
-   STATUS
-========================================================= */
+/* STATUS */
 
 .status{
     display:grid;
-    grid-template-columns:
-        repeat(5,1fr);
-
+    grid-template-columns:repeat(5,1fr);
     gap:5px;
-
-    padding:8px;
-    background:#101010;
-    border-bottom:1px solid #242424;
+    padding:7px;
+    background:#0e0e0e;
+    border-bottom:1px solid #222;
 }
 
 .stat{
     min-width:0;
 }
 
-.stat-head{
+.stat-name{
     display:flex;
     justify-content:space-between;
-    align-items:center;
-
-    font-size:9px;
     color:#aaa;
-
+    font-size:8px;
     margin-bottom:4px;
 }
 
 .stat-value{
-    color:#eee;
-    font-weight:800;
+    color:#fff;
+    font-weight:bold;
 }
 
 .bar{
-    height:6px;
-    overflow:hidden;
+    height:5px;
+    background:#292929;
     border-radius:5px;
-    background:#242424;
+    overflow:hidden;
 }
 
-.bar-fill{
-    width:100%;
+.fill{
     height:100%;
+    width:100%;
     transition:.25s;
 }
 
-.hp{
-    background:#e33;
-}
+.hp{background:#d93636}
+.hunger{background:#c98232}
+.thirst{background:#368fd0}
+.energy{background:#c8b832}
+.rad{background:#7cad39}
 
-.hunger{
-    background:#d98b35;
-}
+/* INFO */
 
-.thirst{
-    background:#3d91df;
-}
-
-.energy{
-    background:#d5c23c;
-}
-
-.radiation{
-    background:#7db83e;
-}
-
-
-/* =========================================================
-   WORLD HEADER
-========================================================= */
-
-.world-info{
+.info{
     display:grid;
-    grid-template-columns:
-        1fr 1fr 1fr 1fr;
-
+    grid-template-columns:repeat(4,1fr);
     gap:5px;
-
-    padding:8px;
+    padding:7px;
 }
 
-.world-card{
+.info-box{
     background:#111;
-    border:1px solid #252525;
-    border-radius:7px;
-    padding:7px;
-
+    border:1px solid #242424;
+    border-radius:6px;
+    padding:6px;
     text-align:center;
 }
 
-.world-card small{
+.info-box small{
     display:block;
     color:#666;
-    font-size:8px;
+    font-size:7px;
     margin-bottom:3px;
 }
 
-.world-card b{
-    display:block;
-    font-size:11px;
+.info-box b{
+    font-size:10px;
 }
 
-
-/* =========================================================
-   GAME AREA
-========================================================= */
-
-.game-area{
-    position:relative;
-
-    margin:0 8px;
-
-    height:390px;
-
-    overflow:hidden;
-
-    border:1px solid #2a2a2a;
-    border-radius:10px;
-
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            #20251e 0,
-            #121612 35%,
-            #090a09 100%
-        );
-}
-
-
-/* =========================================================
-   MAP
-========================================================= */
+/* WORLD */
 
 .world{
-    position:absolute;
-    inset:0;
+    height:380px;
+    margin:0 7px;
+    border:1px solid #303030;
+    border-radius:9px;
+    overflow:hidden;
+    position:relative;
+    background:
+        radial-gradient(circle at 50% 50%,#283025,#141914 42%,#080908);
+}
 
+.world-grid{
+    position:absolute;
+    inset:-100px;
     background-image:
-        linear-gradient(
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        );
-
-    background-size:
-        40px 40px;
-
-    transition:.5s;
+        linear-gradient(#ffffff08 1px,transparent 1px),
+        linear-gradient(90deg,#ffffff08 1px,transparent 1px);
+    background-size:40px 40px;
 }
 
-.world.night{
-    filter:
-        brightness(.45)
-        saturate(.7);
-}
-
-
-/* =========================================================
-   PLAYER
-========================================================= */
-
-.player-marker{
+.object{
     position:absolute;
+    transform:translate(-50%,-50%);
+    font-size:24px;
+    filter:drop-shadow(0 3px 4px #000);
+}
 
+.player{
+    position:absolute;
     left:50%;
     top:50%;
-
-    width:28px;
-    height:28px;
-
-    transform:
-        translate(-50%,-50%);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#ddd;
-    color:#111;
-
-    border:2px solid #fff;
+    width:30px;
+    height:30px;
+    border:2px solid white;
     border-radius:50%;
-
-    box-shadow:
-        0 0 15px
-        rgba(255,255,255,.35);
-
-    z-index:20;
+    background:#bbb;
+    color:#111;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+    box-shadow:0 0 18px #fff4;
 }
 
-.player-marker::after{
+.player:after{
     content:"";
-
-    position:absolute;
-
     width:7px;
     height:7px;
-
     background:#111;
-
     border-radius:50%;
 }
-
-
-/* =========================================================
-   MAP OBJECTS
-========================================================= */
-
-.map-object{
-    position:absolute;
-
-    width:28px;
-    height:28px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:17px;
-
-    transform:
-        translate(-50%,-50%);
-
-    z-index:5;
-}
-
-.map-object span{
-    filter:
-        drop-shadow(
-            0 2px 4px #000
-        );
-}
-
-
-/* =========================================================
-   LOCATION LABEL
-========================================================= */
 
 .location{
     position:absolute;
-
-    left:10px;
-    top:10px;
-
-    padding:6px 8px;
-
-    border-radius:6px;
-
-    background:
-        rgba(0,0,0,.65);
-
+    top:9px;
+    left:9px;
+    background:#000b;
     border:1px solid #292929;
-
-    font-size:9px;
-
-    z-index:30;
+    border-radius:6px;
+    padding:6px 8px;
+    z-index:20;
 }
 
 .location b{
     display:block;
-    font-size:11px;
+    font-size:10px;
 }
 
 .location small{
     color:#777;
+    font-size:7px;
 }
 
-
-/* =========================================================
-   EVENT LOG
-========================================================= */
-
-.events{
+.log{
     position:absolute;
-
+    bottom:8px;
     left:8px;
     right:8px;
-    bottom:8px;
-
-    max-height:90px;
-
-    overflow:hidden;
-
     display:flex;
     flex-direction:column;
-    justify-content:flex-end;
-
     gap:3px;
-
+    z-index:30;
     pointer-events:none;
-
-    z-index:40;
 }
 
-.event{
+.message{
     width:max-content;
     max-width:90%;
-
-    padding:5px 7px;
-
+    background:#000c;
+    border:1px solid #292929;
     border-radius:5px;
-
-    background:
-        rgba(0,0,0,.72);
-
-    border:1px solid #252525;
-
+    padding:5px 7px;
     font-size:9px;
 }
 
-.event b{
-    margin-right:4px;
-}
-
-
-/* =========================================================
-   ACTIONS
-========================================================= */
+/* ACTIONS */
 
 .actions{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:6px;
-
-    padding:8px;
+    grid-template-columns:repeat(4,1fr);
+    gap:5px;
+    padding:7px;
 }
 
 .action{
-    min-height:45px;
-
-    border-radius:7px;
-
+    min-height:48px;
     background:#151515;
-
     border:1px solid #2b2b2b;
-
+    border-radius:7px;
     font-size:10px;
-    font-weight:800;
+    font-weight:bold;
 }
 
 .action:hover{
     background:#1b1b1b;
 }
 
-
-/* =========================================================
-   PANELS
-========================================================= */
+/* PANEL */
 
 .panel{
-    margin:0 8px 8px;
-
-    padding:9px;
-
+    margin:0 7px 7px;
+    padding:8px;
     background:#101010;
-
     border:1px solid #252525;
-
-    border-radius:8px;
+    border-radius:7px;
 }
 
-.panel-title{
+.title{
     display:flex;
-    align-items:center;
     justify-content:space-between;
-
-    margin-bottom:8px;
-
+    margin-bottom:7px;
     font-size:11px;
     font-weight:900;
-    letter-spacing:.5px;
 }
 
-.panel-title small{
+.title small{
     color:#666;
-    font-weight:400;
+    font-size:8px;
+    font-weight:normal;
 }
 
-
-/* =========================================================
-   INVENTORY
-========================================================= */
+/* INVENTORY */
 
 .inventory{
     display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:5px;
 }
 
-.inventory-item{
+.item{
     min-height:48px;
-
+    background:#151515;
+    border:1px solid #282828;
+    border-radius:6px;
     display:flex;
     flex-direction:column;
-    align-items:center;
     justify-content:center;
-
-    background:#151515;
-
-    border:1px solid #282828;
-
-    border-radius:6px;
-
-    font-size:8px;
+    align-items:center;
 }
 
-.inventory-item span{
-    font-size:16px;
-    margin-bottom:2px;
+.item span{
+    font-size:17px;
 }
 
-.inventory-item b{
-    font-size:9px;
+.item b{
+    font-size:10px;
 }
 
-
-/* =========================================================
-   BUILDING
-========================================================= */
-
-.building-panel{
-    display:block;
+.item small{
+    color:#666;
+    font-size:7px;
 }
 
-.building-items{
+/* BUILD */
+
+.build-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:5px;
 }
 
-.build-item{
-    min-height:60px;
-
-    padding:5px;
-
+.build{
+    min-height:57px;
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:6px;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-
-    background:#151515;
-
-    border:1px solid #292929;
-
-    border-radius:6px;
 }
 
-.build-item.active{
-    border-color:#888;
-    background:#1c1c1c;
+.build.active{
+    border-color:#aaa;
+    background:#202020;
 }
 
-.build-item span{
-    font-size:18px;
+.build span{
+    font-size:17px;
 }
 
-.build-item b{
+.build b{
     font-size:8px;
-    margin-top:3px;
-}
-
-.build-item small{
-    color:#777;
-    font-size:7px;
     margin-top:2px;
 }
 
-.building-actions{
+.build small{
+    color:#666;
+    font-size:7px;
+}
+
+.build-actions{
     display:grid;
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:5px;
-
     margin-top:6px;
 }
 
-.building-actions button{
+.build-actions button{
     min-height:35px;
-
     background:#181818;
-
     border:1px solid #292929;
-
     border-radius:6px;
-
-    font-size:9px;
-    font-weight:800;
-}
-
-
-/* =========================================================
-   QUICK TEST
-========================================================= */
-
-.test-panel{
-    margin:0 8px 20px;
-
-    padding:8px;
-
-    border:1px dashed #292929;
-
-    border-radius:7px;
-
-    background:#0c0c0c;
-}
-
-.test-title{
-    color:#666;
     font-size:8px;
-    margin-bottom:6px;
+    font-weight:bold;
 }
 
-.test-buttons{
-    display:grid;
+/* NAV */
 
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:5px;
-}
-
-.test-buttons button{
-    min-height:32px;
-
-    background:#151515;
-
-    border:1px solid #282828;
-
-    border-radius:5px;
-
-    color:#aaa;
-
-    font-size:8px;
-}
-
-
-/* =========================================================
-   BOTTOM NAV
-========================================================= */
-
-.bottom-nav{
+.nav{
     position:sticky;
-
     bottom:0;
-
-    z-index:100;
-
+    z-index:50;
     display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    gap:2px;
-
+    grid-template-columns:repeat(5,1fr);
+    gap:3px;
     padding:6px;
-
-    background:
-        rgba(10,10,10,.96);
-
+    background:#0b0b0bf2;
     border-top:1px solid #292929;
-
-    backdrop-filter:
-        blur(8px);
+    backdrop-filter:blur(8px);
 }
 
-.nav-btn{
+.nav button{
     min-height:42px;
-
-    background:#121212;
-
-    border:1px solid #222;
-
+    background:#131313;
+    border:1px solid #242424;
     border-radius:6px;
-
-    font-size:9px;
+    font-size:8px;
 }
 
-.nav-btn span{
+.nav span{
     display:block;
     font-size:15px;
     margin-bottom:2px;
 }
 
-
-/* =========================================================
-   MODAL
-========================================================= */
+/* MODAL */
 
 .modal{
     position:fixed;
-
     inset:0;
-
-    z-index:500;
-
+    background:#000b;
     display:none;
-
-    align-items:center;
     justify-content:center;
-
+    align-items:center;
     padding:15px;
-
-    background:
-        rgba(0,0,0,.75);
+    z-index:1000;
 }
 
-.modal.active{
+.modal.show{
     display:flex;
 }
 
 .modal-box{
     width:100%;
-    max-width:420px;
-
-    max-height:
-        calc(100vh - 30px);
-
+    max-width:430px;
+    max-height:85vh;
     overflow:auto;
-
-    padding:12px;
-
     background:#111;
-
     border:1px solid #303030;
-
-    border-radius:10px;
+    border-radius:9px;
+    padding:12px;
 }
 
 .modal-head{
     display:flex;
-    align-items:center;
     justify-content:space-between;
-
+    align-items:center;
     margin-bottom:10px;
 }
 
@@ -783,758 +469,322 @@ button:active{
     font-size:13px;
 }
 
-.modal-close{
+.close{
     width:28px;
     height:28px;
-
-    background:#1d1d1d;
-
     border-radius:5px;
-
-    font-size:17px;
+    background:#202020;
+    font-size:18px;
 }
 
+.modal-grid{
+    display:grid;
+    gap:6px;
+}
 
-/* =========================================================
-   MOBILE
-========================================================= */
+.modal-button{
+    width:100%;
+    min-height:42px;
+    background:#181818;
+    border:1px solid #292929;
+    border-radius:6px;
+    text-align:left;
+    padding:7px;
+    font-size:10px;
+}
 
 @media(max-width:480px){
 
-    .game-area{
-        height:340px;
+    .world{
+        height:330px;
     }
 
-    .world-info{
-        grid-template-columns:
-            repeat(2,1fr);
+    .info{
+        grid-template-columns:repeat(2,1fr);
     }
 
     .actions{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .inventory{
-        grid-template-columns:
-            repeat(4,1fr);
-    }
-
-    .building-items{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .test-buttons{
-        grid-template-columns:
-            repeat(2,1fr);
+    .build-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
-
-
-/* =========================================================
-   STATUS CLASSES
-========================================================= */
-
-body.dead .game-area{
-    filter:
-        grayscale(.8)
-        brightness(.45);
-}
-
-body.night .world{
-    filter:
-        brightness(.45)
-        saturate(.7);
-}
-
-body.weather-fog .world{
-    filter:
-        brightness(.75)
-        blur(.4px);
-}
-
-body.weather-storm .world{
-    filter:
-        brightness(.55);
-}
-
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="app">
 
-
-<!-- =====================================================
-     TOP
-===================================================== -->
-
-<header class="topbar">
+<!-- TOP -->
+<header class="top">
 
     <div class="logo">
-
         WASTELAND
-
-        <small>
-            SURVIVAL TEST
-        </small>
-
+        <small>SURVIVAL TEST</small>
     </div>
 
-
-    <div class="balance">
-
-        <div
-            class="balance-value"
-            id="balance"
-        >
-            💰 1000
-        </div>
-
-        <small>
-            ТЕСТОВЫЙ БАЛАНС
-        </small>
-
+    <div class="money">
+        <span id="money">💰 1000</span>
+        <small>БАЛАНС</small>
     </div>
 
 </header>
 
 
-<!-- =====================================================
-     SURVIVAL STATUS
-===================================================== -->
-
+<!-- STATUS -->
 <section class="status">
 
-
     <div class="stat">
-
-        <div class="stat-head">
-
+        <div class="stat-name">
             <span>❤️ HP</span>
-
-            <span
-                class="stat-value"
-                data-survival-value="hp"
-            >
-                100
-            </span>
-
+            <span class="stat-value" id="hpText">100</span>
         </div>
-
         <div class="bar">
-
-            <div
-                class="bar-fill hp"
-                data-survival="hp"
-                style="width:100%"
-            ></div>
-
+            <div class="fill hp" id="hpBar"></div>
         </div>
-
     </div>
 
-
     <div class="stat">
-
-        <div class="stat-head">
-
+        <div class="stat-name">
             <span>🍖</span>
-
-            <span
-                class="stat-value"
-                data-survival-value="hunger"
-            >
-                100
-            </span>
-
+            <span class="stat-value" id="hungerText">100</span>
         </div>
-
         <div class="bar">
-
-            <div
-                class="bar-fill hunger"
-                data-survival="hunger"
-                style="width:100%"
-            ></div>
-
+            <div class="fill hunger" id="hungerBar"></div>
         </div>
-
     </div>
 
-
     <div class="stat">
-
-        <div class="stat-head">
-
+        <div class="stat-name">
             <span>💧</span>
-
-            <span
-                class="stat-value"
-                data-survival-value="thirst"
-            >
-                100
-            </span>
-
+            <span class="stat-value" id="thirstText">100</span>
         </div>
-
         <div class="bar">
-
-            <div
-                class="bar-fill thirst"
-                data-survival="thirst"
-                style="width:100%"
-            ></div>
-
+            <div class="fill thirst" id="thirstBar"></div>
         </div>
-
     </div>
 
-
     <div class="stat">
-
-        <div class="stat-head">
-
+        <div class="stat-name">
             <span>⚡</span>
-
-            <span
-                class="stat-value"
-                data-survival-value="energy"
-            >
-                100
-            </span>
-
+            <span class="stat-value" id="energyText">100</span>
         </div>
-
         <div class="bar">
-
-            <div
-                class="bar-fill energy"
-                data-survival="energy"
-                style="width:100%"
-            ></div>
-
+            <div class="fill energy" id="energyBar"></div>
         </div>
-
     </div>
-
 
     <div class="stat">
-
-        <div class="stat-head">
-
+        <div class="stat-name">
             <span>☢️</span>
-
-            <span
-                class="stat-value"
-                data-survival-value="radiation"
-            >
-                0
-            </span>
-
+            <span class="stat-value" id="radText">0</span>
         </div>
-
         <div class="bar">
-
-            <div
-                class="bar-fill radiation"
-                data-survival="radiation"
-                style="width:0%"
-            ></div>
-
+            <div class="fill rad" id="radBar" style="width:0"></div>
         </div>
-
     </div>
-
 
 </section>
 
 
-<!-- =====================================================
-     WORLD INFO
-===================================================== -->
+<!-- WORLD INFO -->
+<section class="info">
 
-<section class="world-info">
-
-
-    <div class="world-card">
-
+    <div class="info-box">
         <small>ВРЕМЯ</small>
-
-        <b data-world-time>
-            12:00
-        </b>
-
+        <b id="time">12:00</b>
     </div>
 
-
-    <div class="world-card">
-
+    <div class="info-box">
         <small>ДЕНЬ</small>
-
-        <b data-world-day>
-            День 1
-        </b>
-
+        <b id="day">День 1</b>
     </div>
 
-
-    <div class="world-card">
-
+    <div class="info-box">
         <small>ПОГОДА</small>
-
-        <b data-weather>
-            ☀️ Ясно
-        </b>
-
+        <b id="weather">☀️ Ясно</b>
     </div>
 
-
-    <div class="world-card">
-
+    <div class="info-box">
         <small>ТЕМПЕРАТУРА</small>
-
-        <b data-temperature>
-            24°C
-        </b>
-
-    </div>
-
-
-</section>
-
-
-<!-- =====================================================
-     GAME WORLD
-===================================================== -->
-
-<section class="game-area">
-
-    <div
-        class="world"
-        id="world"
-    >
-
-        <!-- player -->
-
-        <div
-            class="player-marker"
-            id="playerMarker"
-        ></div>
-
-
-        <!-- objects -->
-
-        <div
-            class="map-object"
-            style="left:18%;top:25%"
-        >
-            🌲
-        </div>
-
-        <div
-            class="map-object"
-            style="left:76%;top:30%"
-        >
-            🌲
-        </div>
-
-        <div
-            class="map-object"
-            style="left:30%;top:72%"
-        >
-            🪨
-        </div>
-
-        <div
-            class="map-object"
-            style="left:78%;top:70%"
-        >
-            📦
-        </div>
-
-        <div
-            class="map-object"
-            style="left:58%;top:20%"
-        >
-            🛢️
-        </div>
-
-
-        <div
-            class="location"
-        >
-
-            <b id="locationName">
-                Пустошь
-            </b>
-
-            <small>
-                Безопасность: низкая
-            </small>
-
-        </div>
-
-
-        <div
-            class="events"
-            id="events"
-        ></div>
-
+        <b id="temperature">24°C</b>
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     MAIN ACTIONS
-===================================================== -->
+<!-- WORLD -->
+<section class="world" id="world">
 
+    <div class="world-grid"></div>
+
+    <div class="object" style="left:18%;top:25%">🌲</div>
+    <div class="object" style="left:76%;top:27%">🌲</div>
+    <div class="object" style="left:27%;top:72%">🪨</div>
+    <div class="object" style="left:75%;top:70%">📦</div>
+    <div class="object" style="left:58%;top:20%">🛢️</div>
+    <div class="object" style="left:48%;top:82%">🌲</div>
+
+    <div class="player" id="player"></div>
+
+    <div class="location">
+        <b id="location">ПУСТОШЬ</b>
+        <small>Опасность: высокая</small>
+    </div>
+
+    <div class="log" id="log"></div>
+
+</section>
+
+
+<!-- ACTIONS -->
 <section class="actions">
 
-
-    <button
-        class="action"
-        id="searchBtn"
-    >
-        🔎<br>
-        ИСКАТЬ
+    <button class="action" id="search">
+        🔎<br>ИСКАТЬ
     </button>
 
-
-    <button
-        class="action"
-        id="lootBtn"
-    >
-        📦<br>
-        ОБЫСК
+    <button class="action" id="loot">
+        📦<br>ОБЫСК
     </button>
 
-
-    <button
-        class="action"
-        id="gatherBtn"
-    >
-        🌲<br>
-        ДОБЫЧА
+    <button class="action" id="gather">
+        🌲<br>ДОБЫВАТЬ
     </button>
 
-
-    <button
-        class="action"
-        id="attackBtn"
-    >
-        ⚔️<br>
-        АТАКА
+    <button class="action" id="attack">
+        ⚔️<br>АТАКА
     </button>
-
 
 </section>
 
 
-<!-- =====================================================
-     INVENTORY
-===================================================== -->
-
+<!-- INVENTORY -->
 <section class="panel">
 
-    <div class="panel-title">
-
+    <div class="title">
         🎒 ИНВЕНТАРЬ
-
-        <small>
-            РЕСУРСЫ
-        </small>
-
+        <small>РЕСУРСЫ</small>
     </div>
 
+    <div class="inventory">
 
-    <div
-        class="inventory"
-        id="inventory"
-    >
-
-
-        <div class="inventory-item">
-
+        <div class="item">
             <span>🪵</span>
-
-            <b id="wood">
-                500
-            </b>
-
-            <small>
-                Дерево
-            </small>
-
+            <b id="wood">500</b>
+            <small>Дерево</small>
         </div>
 
-
-        <div class="inventory-item">
-
+        <div class="item">
             <span>🪨</span>
-
-            <b id="stone">
-                250
-            </b>
-
-            <small>
-                Камень
-            </small>
-
+            <b id="stone">250</b>
+            <small>Камень</small>
         </div>
 
-
-        <div class="inventory-item">
-
+        <div class="item">
             <span>⛓️</span>
-
-            <b id="metal">
-                100
-            </b>
-
-            <small>
-                Металл
-            </small>
-
+            <b id="metal">100</b>
+            <small>Металл</small>
         </div>
 
-
-        <div class="inventory-item">
-
+        <div class="item">
             <span>🔩</span>
-
-            <b id="scrap">
-                0
-            </b>
-
-            <small>
-                Лом
-            </small>
-
+            <b id="scrap">0</b>
+            <small>Лом</small>
         </div>
 
-
-        <div class="inventory-item">
-
+        <div class="item">
             <span>🧵</span>
-
-            <b id="cloth">
-                0
-            </b>
-
-            <small>
-                Ткань
-            </small>
-
+            <b id="cloth">0</b>
+            <small>Ткань</small>
         </div>
 
-
-        <div class="inventory-item">
-
+        <div class="item">
             <span>🟡</span>
-
-            <b id="sulfur">
-                0
-            </b>
-
-            <small>
-                Сера
-            </small>
-
+            <b id="sulfur">0</b>
+            <small>Сера</small>
         </div>
 
-
-        <div class="inventory-item">
-
-            <span>🟫</span>
-
-            <b id="leather">
-                0
-            </b>
-
-            <small>
-                Кожа
-            </small>
-
+        <div class="item">
+            <span>🦌</span>
+            <b id="leather">0</b>
+            <small>Кожа</small>
         </div>
 
-
-        <div class="inventory-item">
-
+        <div class="item">
             <span>⚙️</span>
-
-            <b id="components">
-                0
-            </b>
-
-            <small>
-                Компоненты
-            </small>
-
+            <b id="components">0</b>
+            <small>Детали</small>
         </div>
-
 
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     BUILDING
-===================================================== -->
+<!-- BUILDING -->
+<section class="panel">
 
-<section
-    class="panel building-panel"
->
-
-    <div class="panel-title">
-
+    <div class="title">
         🔨 СТРОИТЕЛЬСТВО
-
-        <small>
-            B
-        </small>
-
+        <small>B / R</small>
     </div>
 
+    <div class="build-grid">
 
-    <div class="building-items">
-
-        <button
-            class="build-item active"
-            data-build="foundation"
-        >
-
+        <button class="build active" data-build="foundation">
             <span>⬜</span>
-
-            <b>
-                Фундамент
-            </b>
-
-            <small>
-                🪵 100
-            </small>
-
+            <b>Фундамент</b>
+            <small>🪵 100</small>
         </button>
 
-
-        <button
-            class="build-item"
-            data-build="wall"
-        >
-
+        <button class="build" data-build="wall">
             <span>🧱</span>
-
-            <b>
-                Стена
-            </b>
-
-            <small>
-                🪵 50
-            </small>
-
+            <b>Стена</b>
+            <small>🪵 50</small>
         </button>
 
-
-        <button
-            class="build-item"
-            data-build="doorway"
-        >
-
+        <button class="build" data-build="doorway">
             <span>🚪</span>
-
-            <b>
-                Проём
-            </b>
-
-            <small>
-                🪵 75
-            </small>
-
+            <b>Проём</b>
+            <small>🪵 75</small>
         </button>
 
-
-        <button
-            class="build-item"
-            data-build="window"
-        >
-
+        <button class="build" data-build="window">
             <span>🪟</span>
-
-            <b>
-                Окно
-            </b>
-
-            <small>
-                🪵 60
-            </small>
-
+            <b>Окно</b>
+            <small>🪵 60</small>
         </button>
 
-
-        <button
-            class="build-item"
-            data-build="floor"
-        >
-
+        <button class="build" data-build="floor">
             <span>🟫</span>
-
-            <b>
-                Пол
-            </b>
-
-            <small>
-                🪵 75
-            </small>
-
+            <b>Пол</b>
+            <small>🪵 75</small>
         </button>
 
-
-        <button
-            class="build-item"
-            data-build="roof"
-        >
-
+        <button class="build" data-build="roof">
             <span>🔺</span>
-
-            <b>
-                Крыша
-            </b>
-
-            <small>
-                🪵 75
-            </small>
-
+            <b>Крыша</b>
+            <small>🪵 75</small>
         </button>
-
 
     </div>
 
+    <div class="build-actions">
 
-    <div class="building-actions">
-
-        <button
-            data-build-rotate
-        >
+        <button id="rotate">
             🔄 ПОВОРОТ
         </button>
 
-        <button
-            data-build-place
-        >
+        <button id="build">
             🔨 ПОСТРОИТЬ
         </button>
 
-        <button
-            data-build-cancel
-        >
+        <button id="cancel">
             ✕ ОТМЕНА
         </button>
 
@@ -1543,185 +793,41 @@ body.weather-storm .world{
 </section>
 
 
-<!-- =====================================================
-     TEST PANEL
-===================================================== -->
+<!-- NAV -->
+<nav class="nav">
 
-<section class="test-panel">
-
-    <div class="test-title">
-        DEV / TEST CONTROLS
-    </div>
-
-
-    <div class="test-buttons">
-
-
-        <button
-            id="eatTest"
-        >
-            🍖 ЕДА
-        </button>
-
-
-        <button
-            id="drinkTest"
-        >
-            💧 ВОДА
-        </button>
-
-
-        <button
-            id="healTest"
-        >
-            ❤️ ЛЕЧЕНИЕ
-        </button>
-
-
-        <button
-            id="radiationTest"
-        >
-            ☢️ РАДИАЦИЯ
-        </button>
-
-
-        <button
-            onclick="makeRain()"
-        >
-            🌧️ ДОЖДЬ
-        </button>
-
-
-        <button
-            onclick="makeStorm()"
-        >
-            ⛈️ ГРОЗА
-        </button>
-
-
-        <button
-            onclick="makeFog()"
-        >
-            🌫️ ТУМАН
-        </button>
-
-
-        <button
-            onclick="makeHeat()"
-        >
-            🔥 ЖАРА
-        </button>
-
-
-        <button
-            onclick="makeCold()"
-        >
-            ❄️ ХОЛОД
-        </button>
-
-
-        <button
-            onclick="spawnCrate()"
-        >
-            📦 ЯЩИК
-        </button>
-
-
-        <button
-            onclick="spawnBarrel()"
-        >
-            🛢️ БОЧКА
-        </button>
-
-
-        <button
-            onclick="spawnMilitaryCrate()"
-        >
-            🪖 ВОЕННЫЙ
-        </button>
-
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     BOTTOM NAV
-===================================================== -->
-
-<nav class="bottom-nav">
-
-
-    <button
-        class="nav-btn"
-        id="inventoryNav"
-    >
-
+    <button id="inventoryBtn">
         <span>🎒</span>
         РЮКЗАК
-
     </button>
 
-
-    <button
-        class="nav-btn"
-        id="craftNav"
-    >
-
+    <button id="craftBtn">
         <span>🛠️</span>
         КРАФТ
-
     </button>
 
-
-    <button
-        class="nav-btn"
-        id="buildNav"
-    >
-
+    <button id="buildBtn">
         <span>🔨</span>
         СТРОЙКА
-
     </button>
 
-
-    <button
-        class="nav-btn"
-        id="mapNav"
-    >
-
+    <button id="mapBtn">
         <span>🗺️</span>
         КАРТА
-
     </button>
 
-
-    <button
-        class="nav-btn"
-        id="statsNav"
-    >
-
+    <button id="statsBtn">
         <span>👤</span>
         СТАТЫ
-
     </button>
 
-
 </nav>
-
 
 </div>
 
 
-<!-- =====================================================
-     MODAL
-===================================================== -->
-
-<div
-    class="modal"
-    id="modal"
->
+<!-- MODAL -->
+<div class="modal" id="modal">
 
     <div class="modal-box">
 
@@ -1731,10 +837,7 @@ body.weather-storm .world{
                 WASTELAND
             </b>
 
-            <button
-                class="modal-close"
-                id="modalClose"
-            >
+            <button class="close" id="close">
                 ×
             </button>
 
@@ -1747,1507 +850,1598 @@ body.weather-storm .world{
 </div>
 
 
-<!-- =====================================================
-     GAME SCRIPTS
-===================================================== -->
-
-<script src="game.js"></script>
-
-<script src="player.js"></script>
-
-<script src="inventory.js"></script>
-
-<script src="crafting.js"></script>
-
-<script src="building.js"></script>
-
-<script src="combat.js"></script>
-
-<script src="map.js"></script>
-
-<script src="survival.js"></script>
-
-<script src="loot.js"></script>
-
-<script src="weather.js"></script>
-
-
-<!-- =====================================================
-     INDEX CONTROLLER
-===================================================== -->
-
 <script>
+/* =========================================================
+   WASTELAND — SELF CONTAINED TEST BUILD
+========================================================= */
 
 "use strict";
 
 
+const state = {
+
+    balance:1000,
+
+    hp:100,
+    maxHp:100,
+
+    hunger:100,
+    thirst:100,
+
+    energy:100,
+    radiation:0,
+
+    day:1,
+    minutes:720,
+
+    weather:"☀️ Ясно",
+    temperature:24,
+
+    wood:500,
+    stone:250,
+    metal:100,
+    scrap:0,
+    cloth:0,
+    sulfur:0,
+    leather:0,
+    components:0,
+
+    selectedBuild:"foundation",
+    rotation:0,
+
+    structures:[],
+
+    alive:true
+
+};
+
+
 /* =========================================================
-   HELPERS
+   SAVE / LOAD
 ========================================================= */
 
-function player(){
+function save(){
 
-    return window.Game?.player || null;
+    localStorage.setItem(
+        "wasteland_test_save",
+        JSON.stringify(state)
+    );
 
 }
 
 
-function showToast(text){
+function load(){
 
-    const events =
-        document.getElementById(
-            "events"
+    try{
+
+        const data =
+            localStorage.getItem(
+                "wasteland_test_save"
+            );
+
+        if(data){
+
+            Object.assign(
+                state,
+                JSON.parse(data)
+            );
+
+        }
+
+    }catch(e){
+
+        console.warn(e);
+
+    }
+
+}
+
+
+/* =========================================================
+   UI
+========================================================= */
+
+function $(id){
+
+    return document.getElementById(id);
+
+}
+
+
+function setBar(
+    bar,
+    value,
+    max=100
+){
+
+    const percent =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                value / max * 100
+            )
         );
 
-    if(!events)
-        return;
+    $(bar).style.width =
+        percent + "%";
+
+}
 
 
-    const event =
+function update(){
+
+    $("money").textContent =
+        "💰 " +
+        Math.floor(
+            state.balance
+        );
+
+    $("hpText").textContent =
+        Math.floor(state.hp);
+
+    $("hungerText").textContent =
+        Math.floor(state.hunger);
+
+    $("thirstText").textContent =
+        Math.floor(state.thirst);
+
+    $("energyText").textContent =
+        Math.floor(state.energy);
+
+    $("radText").textContent =
+        Math.floor(state.radiation);
+
+
+    setBar(
+        "hpBar",
+        state.hp,
+        state.maxHp
+    );
+
+    setBar(
+        "hungerBar",
+        state.hunger
+    );
+
+    setBar(
+        "thirstBar",
+        state.thirst
+    );
+
+    setBar(
+        "energyBar",
+        state.energy
+    );
+
+    setBar(
+        "radBar",
+        state.radiation
+    );
+
+
+    $("wood").textContent =
+        Math.floor(state.wood);
+
+    $("stone").textContent =
+        Math.floor(state.stone);
+
+    $("metal").textContent =
+        Math.floor(state.metal);
+
+    $("scrap").textContent =
+        Math.floor(state.scrap);
+
+    $("cloth").textContent =
+        Math.floor(state.cloth);
+
+    $("sulfur").textContent =
+        Math.floor(state.sulfur);
+
+    $("leather").textContent =
+        Math.floor(state.leather);
+
+    $("components").textContent =
+        Math.floor(state.components);
+
+
+    const h =
+        Math.floor(
+            state.minutes / 60
+        );
+
+    const m =
+        state.minutes % 60;
+
+
+    $("time").textContent =
+        String(h).padStart(2,"0") +
+        ":" +
+        String(m).padStart(2,"0");
+
+
+    $("day").textContent =
+        "День " +
+        state.day;
+
+
+    $("weather").textContent =
+        state.weather;
+
+
+    $("temperature").textContent =
+        state.temperature +
+        "°C";
+
+
+    document.body.classList.toggle(
+        "dead",
+        !state.alive
+    );
+
+}
+
+
+window.updateUI =
+    update;
+
+
+window.saveGame =
+    save;
+
+
+/* =========================================================
+   LOG
+========================================================= */
+
+function message(
+    text
+){
+
+    const log =
+        $("log");
+
+    const el =
         document.createElement(
             "div"
         );
 
+    el.className =
+        "message";
 
-    event.className =
-        "event";
-
-
-    event.innerHTML =
+    el.textContent =
         text;
 
-
-    events.appendChild(
-        event
+    log.appendChild(
+        el
     );
 
-
     while(
-        events.children.length > 5
+        log.children.length > 5
     ){
 
-        events.removeChild(
-            events.firstChild
+        log.removeChild(
+            log.firstChild
         );
 
     }
 
-
     setTimeout(
         () => {
 
-            event.remove();
+            if(el.parentNode)
+                el.remove();
 
         },
-        5000
+        4500
     );
 
 }
 
 
 window.showToast =
-    showToast;
-
-
-/* =========================================================
-   EVENT
-========================================================= */
-
-function addEvent(
-    icon,
-    title,
-    text
-){
-
-    showToast(
-        `<b>${icon} ${title}</b> ${text}`
-    );
-
-}
-
-
-window.addEvent =
-    addEvent;
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-const modal =
-    document.getElementById(
-        "modal"
-    );
-
-const modalTitle =
-    document.getElementById(
-        "modalTitle"
-    );
-
-const modalContent =
-    document.getElementById(
-        "modalContent"
-    );
-
-
-function openModal(
-    title,
-    html
-){
-
-    modalTitle.textContent =
-        title;
-
-    modalContent.innerHTML =
-        html;
-
-    modal.classList.add(
-        "active"
-    );
-
-}
-
-
-function closeModal(){
-
-    modal.classList.remove(
-        "active"
-    );
-
-}
-
-
-document
-    .getElementById(
-        "modalClose"
-    )
-    .onclick =
-        closeModal;
-
-
-modal.addEventListener(
-    "click",
-    event => {
-
-        if(
-            event.target ===
-            modal
-        ){
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   UPDATE UI
-========================================================= */
-
-function updateUI(){
-
-    const p =
-        player();
-
-
-    if(!p)
-        return;
-
-
-    const values = {
-
-        wood:
-            p.wood || 0,
-
-        stone:
-            p.stone || 0,
-
-        metal:
-            p.metal || 0,
-
-        scrap:
-            p.scrap || 0,
-
-        cloth:
-            p.cloth || 0,
-
-        sulfur:
-            p.sulfur || 0,
-
-        leather:
-            p.leather || 0,
-
-        components:
-            p.components || 0
-
-    };
-
-
-    Object.entries(
-        values
-    ).forEach(
-        ([id,value]) => {
-
-            const element =
-                document.getElementById(
-                    id
-                );
-
-
-            if(element){
-
-                element.textContent =
-                    Math.floor(value);
-
-            }
-
-        }
-    );
-
-
-    const balance =
-        document.getElementById(
-            "balance"
-        );
-
-
-    if(balance){
-
-        balance.textContent =
-            `💰 ${Math.floor(
-                p.balance ||
-                p.money ||
-                1000
-            )}`;
-
-    }
-
-
-    document.body.classList.toggle(
-        "dead",
-        p.alive === false
-    );
-
-
-    if(
-        p.position
-    ){
-
-        updatePlayerPosition(
-            p.position
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   PLAYER POSITION
-========================================================= */
-
-function updatePlayerPosition(
-    position
-){
-
-    const marker =
-        document.getElementById(
-            "playerMarker"
-        );
-
-
-    if(!marker)
-        return;
-
-
-    /*
-       Для тестовой карты:
-       координаты мира переводим
-       в проценты.
-    */
-
-    const x =
-        Math.max(
-            5,
-            Math.min(
-                95,
-                50 +
-                Number(
-                    position.x || 0
-                ) / 10
-            )
-        );
-
-
-    const y =
-        Math.max(
-            5,
-            Math.min(
-                95,
-                50 +
-                Number(
-                    position.y || 0
-                ) / 10
-            )
-        );
-
-
-    marker.style.left =
-        `${x}%`;
-
-
-    marker.style.top =
-        `${y}%`;
-
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-document
-    .getElementById(
-        "searchBtn"
-    )
-    .onclick =
-    () => {
-
-        const p =
-            player();
-
-
-        if(
-            window.LootSystem
-        ){
-
-            const loot =
-                LootSystem.nearest(
-                    80
-                );
-
-
-            if(loot){
-
-                LootSystem.open(
-                    loot.id
-                );
-
-                return;
-
-            }
-
-        }
-
-
-        const rewards = [
-
-            ["🪵","Дерево",15,35],
-
-            ["🪨","Камень",10,30],
-
-            ["🔩","Металлолом",3,15],
-
-            ["🧵","Ткань",2,8]
-
-        ];
-
-
-        const reward =
-            rewards[
-                Math.floor(
-                    Math.random() *
-                    rewards.length
-                )
-            ];
-
-
-        const amount =
-            Math.floor(
-                Math.random() *
-                (
-                    reward[3] -
-                    reward[2] +
-                    1
-                )
-            ) +
-            reward[2];
-
-
-        if(p){
-
-            p[
-                reward[1] === "Дерево"
-                    ? "wood"
-                    : reward[1] === "Камень"
-                        ? "stone"
-                        : reward[1] === "Металлолом"
-                            ? "scrap"
-                            : "cloth"
-            ] =
-                Number(
-                    p[
-                        reward[1] === "Дерево"
-                            ? "wood"
-                            : reward[1] === "Камень"
-                                ? "stone"
-                                : reward[1] === "Металлолом"
-                                    ? "scrap"
-                                    : "cloth"
-                    ] || 0
-                ) +
-                amount;
-
-        }
-
-
-        addEvent(
-            "🔎",
-            "Поиск",
-            `${reward[0]} ${reward[1]} ×${amount}`
-        );
-
-
-        updateUI();
-
-    };
-
-
-/* =========================================================
-   LOOT
-========================================================= */
-
-document
-    .getElementById(
-        "lootBtn"
-    )
-    .onclick =
-    () => {
-
-        if(
-            window.LootSystem
-        ){
-
-            LootSystem.openNearest();
-
-        }
-        else {
-
-            showToast(
-                "📦 Система лута не загружена"
-            );
-
-        }
-
-    };
+    message;
 
 
 /* =========================================================
    GATHER
 ========================================================= */
 
-document
-    .getElementById(
-        "gatherBtn"
-    )
-    .onclick =
-    () => {
+$("gather").onclick =
+function(){
 
-        const p =
-            player();
-
-
-        if(!p)
-            return;
-
-
-        const resources = [
-
-            ["wood","🪵 Дерево",15,40],
-
-            ["stone","🪨 Камень",10,30],
-
-            ["metal","⛓️ Металл",3,12]
-
-        ];
-
-
-        const item =
-            resources[
-                Math.floor(
-                    Math.random() *
-                    resources.length
-                )
-            ];
-
-
-        const amount =
-            Math.floor(
-                Math.random() *
-                (
-                    item[3] -
-                    item[2] +
-                    1
-                )
-            ) +
-            item[2];
-
-
-        p[item[0]] =
-            Number(
-                p[item[0]] || 0
-            ) +
-            amount;
-
-
-        if(
-            window.Survival
-        ){
-
-            Survival.useEnergy(
-                5
-            );
-
-        }
-
-
-        addEvent(
-            "🌲",
-            "Добыча",
-            `${item[1]} ×${amount}`
+    if(!state.alive)
+        return message(
+            "☠️ Вы мертвы"
         );
 
 
-        updateUI();
+    const list = [
 
-    };
+        ["wood","🪵 Дерево",15,40],
+
+        ["stone","🪨 Камень",10,30],
+
+        ["metal","⛓️ Металл",3,12]
+
+    ];
+
+
+    const r =
+        list[
+            Math.floor(
+                Math.random() *
+                list.length
+            )
+        ];
+
+
+    const amount =
+        Math.floor(
+            Math.random() *
+            (r[3]-r[2]+1)
+        ) + r[2];
+
+
+    state[r[0]] += amount;
+
+    state.energy =
+        Math.max(
+            0,
+            state.energy - 5
+        );
+
+
+    message(
+        `${r[1]} +${amount}`
+    );
+
+
+    save();
+    update();
+
+};
 
 
 /* =========================================================
-   ATTACK
+   SEARCH
 ========================================================= */
 
-document
-    .getElementById(
-        "attackBtn"
-    )
-    .onclick =
-    () => {
+$("search").onclick =
+function(){
 
-        if(
-            window.CombatSystem
-        ){
+    if(!state.alive)
+        return;
 
-            /*
-               Используем первую доступную
-               боевую функцию.
-            */
 
-            if(
-                typeof CombatSystem.attack ===
-                "function"
-            ){
+    const loot = [
 
-                CombatSystem.attack();
+        ["wood","🪵 Дерево",20],
 
-            }
+        ["stone","🪨 Камень",20],
 
-            else {
+        ["scrap","🔩 Лом",5],
 
-                showToast(
-                    "⚔️ Боевой режим готов"
+        ["cloth","🧵 Ткань",4],
+
+        ["components","⚙️ Детали",2]
+
+    ];
+
+
+    const r =
+        loot[
+            Math.floor(
+                Math.random() *
+                loot.length
+            )
+        ];
+
+
+    const amount =
+        Math.max(
+            1,
+            Math.floor(
+                r[2] *
+                (.5 + Math.random())
+            )
+        );
+
+
+    state[r[0]] += amount;
+
+
+    message(
+        `🔎 Найдено: ${r[1]} ×${amount}`
+    );
+
+
+    state.energy =
+        Math.max(
+            0,
+            state.energy - 3
+        );
+
+
+    save();
+    update();
+
+};
+
+
+/* =========================================================
+   LOOT
+========================================================= */
+
+$("loot").onclick =
+function(){
+
+    if(!state.alive)
+        return;
+
+
+    const roll =
+        Math.random();
+
+
+    if(roll < .2){
+
+        state.scrap +=
+            Math.floor(
+                Math.random()*15
+            ) + 5;
+
+        state.components += 1;
+
+        message(
+            "📦 В ящике найдены детали и лом!"
+        );
+
+    }
+    else if(roll < .5){
+
+        state.cloth +=
+            Math.floor(
+                Math.random()*8
+            ) + 2;
+
+        message(
+            "📦 Найдена ткань"
+        );
+
+    }
+    else{
+
+        state.wood +=
+            Math.floor(
+                Math.random()*40
+            ) + 10;
+
+        message(
+            "📦 Найдены ресурсы"
+        );
+
+    }
+
+
+    save();
+    update();
+
+};
+
+
+/* =========================================================
+   COMBAT
+========================================================= */
+
+$("attack").onclick =
+function(){
+
+    if(!state.alive)
+        return;
+
+
+    message(
+        "⚔️ Вы столкнулись с противником!"
+    );
+
+
+    setTimeout(
+        () => {
+
+            const win =
+                Math.random() < .65;
+
+
+            if(win){
+
+                const reward =
+                    Math.floor(
+                        Math.random()*150
+                    ) + 50;
+
+
+                state.balance +=
+                    reward;
+
+                state.scrap +=
+                    Math.floor(
+                        Math.random()*10
+                    ) + 2;
+
+
+                message(
+                    `🏆 Победа! +${reward}₽`
                 );
 
             }
+            else{
 
-        }
-        else {
-
-            showToast(
-                "⚔️ Combat system не загружен"
-            );
-
-        }
-
-    };
+                state.hp =
+                    Math.max(
+                        0,
+                        state.hp -
+                        25
+                    );
 
 
-/* =========================================================
-   TEST FOOD
-========================================================= */
-
-document
-    .getElementById(
-        "eatTest"
-    )
-    .onclick =
-    () => {
-
-        if(
-            window.Survival
-        ){
-
-            Survival.eat(
-                30
-            );
-
-        }
-
-    };
+                message(
+                    "💥 Вы получили 25 урона"
+                );
 
 
-/* =========================================================
-   TEST WATER
-========================================================= */
+                if(
+                    state.hp <= 0
+                ){
 
-document
-    .getElementById(
-        "drinkTest"
-    )
-    .onclick =
-    () => {
+                    state.alive =
+                        false;
 
-        if(
-            window.Survival
-        ){
+                    message(
+                        "☠️ Вы погибли"
+                    );
 
-            Survival.drink(
-                35
-            );
+                }
 
-        }
+            }
 
-    };
+
+            save();
+            update();
+
+        },
+        500
+    );
+
+};
 
 
 /* =========================================================
-   TEST HEAL
+   BUILDING
 ========================================================= */
 
+const buildCosts = {
+
+    foundation:{
+        wood:100
+    },
+
+    wall:{
+        wood:50
+    },
+
+    doorway:{
+        wood:75
+    },
+
+    window:{
+        wood:60
+    },
+
+    floor:{
+        wood:75
+    },
+
+    roof:{
+        wood:75
+    }
+
+};
+
+
 document
-    .getElementById(
-        "healTest"
-    )
-    .onclick =
-    () => {
+.querySelectorAll(
+    "[data-build]"
+)
+.forEach(
+    button => {
 
-        if(
-            window.Survival
-        ){
+        button.onclick =
+        function(){
 
-            Survival.heal(
-                25
+            state.selectedBuild =
+                this.dataset.build;
+
+
+            document
+            .querySelectorAll(
+                "[data-build]"
+            )
+            .forEach(
+                b =>
+                    b.classList.remove(
+                        "active"
+                    )
             );
 
-        }
+
+            this.classList.add(
+                "active"
+            );
+
+
+            message(
+                "🔨 Выбрано: " +
+                this.innerText
+                    .split("\n")[1]
+            );
+
+        };
+
+    }
+);
+
+
+$("rotate").onclick =
+function(){
+
+    state.rotation =
+        (
+            state.rotation +
+            90
+        ) % 360;
+
+
+    message(
+        "🔄 Поворот: " +
+        state.rotation +
+        "°"
+    );
+
+};
+
+
+$("build").onclick =
+function(){
+
+    if(!state.alive)
+        return;
+
+
+    const cost =
+        buildCosts[
+            state.selectedBuild
+        ];
+
+
+    if(
+        state.wood <
+        cost.wood
+    ){
+
+        return message(
+            "❌ Не хватает дерева"
+        );
+
+    }
+
+
+    state.wood -=
+        cost.wood;
+
+
+    const structure = {
+
+        id:
+            Date.now(),
+
+        type:
+            state.selectedBuild,
+
+        rotation:
+            state.rotation,
+
+        hp:
+            100
 
     };
+
+
+    state.structures.push(
+        structure
+    );
+
+
+    message(
+        "🔨 Постройка установлена!"
+    );
+
+
+    save();
+    update();
+
+};
+
+
+$("cancel").onclick =
+function(){
+
+    message(
+        "✕ Режим строительства закрыт"
+    );
+
+};
+
+
+/* =========================================================
+   FOOD / WATER
+========================================================= */
+
+function eat(){
+
+    if(
+        state.hunger >= 100
+    ){
+
+        return message(
+            "🍖 Вы не голодны"
+        );
+
+    }
+
+
+    state.hunger =
+        Math.min(
+            100,
+            state.hunger + 30
+        );
+
+
+    message(
+        "🍖 Вы поели"
+    );
+
+
+    save();
+    update();
+
+}
+
+
+function drink(){
+
+    if(
+        state.thirst >= 100
+    ){
+
+        return message(
+            "💧 Вы не хотите пить"
+        );
+
+    }
+
+
+    state.thirst =
+        Math.min(
+            100,
+            state.thirst + 35
+        );
+
+
+    message(
+        "💧 Вы выпили воды"
+    );
+
+
+    save();
+    update();
+
+}
+
+
+function heal(){
+
+    if(
+        state.hp >=
+        state.maxHp
+    ){
+
+        return message(
+            "❤️ Здоровье уже полное"
+        );
+
+    }
+
+
+    state.hp =
+        Math.min(
+            state.maxHp,
+            state.hp + 25
+        );
+
+
+    message(
+        "🩹 Вы восстановили здоровье"
+    );
+
+
+    save();
+    update();
+
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+function modal(
+    title,
+    html
+){
+
+    $("modalTitle").textContent =
+        title;
+
+    $("modalContent").innerHTML =
+        html;
+
+    $("modal").classList.add(
+        "show"
+    );
+
+}
+
+
+$("close").onclick =
+function(){
+
+    $("modal").classList.remove(
+        "show"
+    );
+
+};
+
+
+$("modal").onclick =
+function(e){
+
+    if(
+        e.target ===
+        $("modal")
+    ){
+
+        $("modal").classList.remove(
+            "show"
+        );
+
+    }
+
+};
+
+
+/* INVENTORY */
+
+$("inventoryBtn").onclick =
+function(){
+
+    modal(
+
+        "🎒 РЮКЗАК",
+
+        `
+
+        <div class="modal-grid">
+
+            <button class="modal-button"
+                onclick="eat()">
+                🍖 Поесть
+                — восстановить голод
+            </button>
+
+            <button class="modal-button"
+                onclick="drink()">
+                💧 Выпить
+                — восстановить жажду
+            </button>
+
+            <button class="modal-button"
+                onclick="heal()">
+                🩹 Использовать аптечку
+            </button>
+
+        </div>
+
+        `
+
+    );
+
+};
+
+
+/* CRAFT */
+
+$("craftBtn").onclick =
+function(){
+
+    modal(
+
+        "🛠️ КРАФТ",
+
+        `
+
+        <div class="modal-grid">
+
+            <button
+                class="modal-button"
+                onclick="craftAxe()">
+
+                🪓 Каменный топор
+                <br>
+                <small>
+                🪵 50 + 🪨 20
+                </small>
+
+            </button>
+
+            <button
+                class="modal-button"
+                onclick="craftPickaxe()">
+
+                ⛏️ Каменная кирка
+                <br>
+                <small>
+                🪵 40 + 🪨 30
+                </small>
+
+            </button>
+
+            <button
+                class="modal-button"
+                onclick="craftFire()">
+
+                🔥 Костёр
+                <br>
+                <small>
+                🪵 30 + 🪨 10
+                </small>
+
+            </button>
+
+        </div>
+
+        `
+
+    );
+
+};
+
+
+function craftAxe(){
+
+    if(
+        state.wood < 50 ||
+        state.stone < 20
+    ){
+
+        return message(
+            "❌ Не хватает ресурсов"
+        );
+
+    }
+
+
+    state.wood -= 50;
+    state.stone -= 20;
+
+    message(
+        "🪓 Создан каменный топор"
+    );
+
+    save();
+    update();
+
+}
+
+
+function craftPickaxe(){
+
+    if(
+        state.wood < 40 ||
+        state.stone < 30
+    ){
+
+        return message(
+            "❌ Не хватает ресурсов"
+        );
+
+    }
+
+
+    state.wood -= 40;
+    state.stone -= 30;
+
+    message(
+        "⛏️ Создана кирка"
+    );
+
+    save();
+    update();
+
+}
+
+
+function craftFire(){
+
+    if(
+        state.wood < 30 ||
+        state.stone < 10
+    ){
+
+        return message(
+            "❌ Не хватает ресурсов"
+        );
+
+    }
+
+
+    state.wood -= 30;
+    state.stone -= 10;
+
+    message(
+        "🔥 Костёр создан"
+    );
+
+    save();
+    update();
+
+}
+
+
+/* BUILD NAV */
+
+$("buildBtn").onclick =
+function(){
+
+    document
+    .querySelector(
+        ".build-grid"
+    )
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+};
+
+
+/* MAP */
+
+$("mapBtn").onclick =
+function(){
+
+    modal(
+
+        "🗺️ КАРТА",
+
+        `
+
+        <div
+            style="
+                height:300px;
+                border:1px solid #292929;
+                border-radius:7px;
+                position:relative;
+                overflow:hidden;
+                background:
+                repeating-linear-gradient(
+                    0deg,
+                    #111 0 39px,
+                    #181818 40px
+                );
+            "
+        >
+
+            <div
+                style="
+                    position:absolute;
+                    left:50%;
+                    top:50%;
+                    transform:
+                    translate(-50%,-50%);
+                    font-size:27px;
+                "
+            >
+                📍
+            </div>
+
+            <div
+                style="
+                    position:absolute;
+                    left:20%;
+                    top:25%;
+                    font-size:23px;
+                "
+            >
+                🌲
+            </div>
+
+            <div
+                style="
+                    position:absolute;
+                    left:72%;
+                    top:30%;
+                    font-size:23px;
+                "
+            >
+                🏭
+            </div>
+
+            <div
+                style="
+                    position:absolute;
+                    left:30%;
+                    top:72%;
+                    font-size:23px;
+                "
+            >
+                ⛺
+            </div>
+
+            <div
+                style="
+                    position:absolute;
+                    left:75%;
+                    top:75%;
+                    font-size:23px;
+                "
+            >
+                ☢️
+            </div>
+
+        </div>
+
+        <br>
+
+        <small style="color:#777">
+            Исследуй карту, находи ресурсы,
+            военные объекты и опасные зоны.
+        </small>
+
+        `
+
+    );
+
+};
+
+
+/* STATS */
+
+$("statsBtn").onclick =
+function(){
+
+    modal(
+
+        "👤 ПЕРСОНАЖ",
+
+        `
+
+        <div class="modal-grid">
+
+            <div class="modal-button">
+                ❤️ HP:
+                <b>${Math.floor(state.hp)}</b>
+            </div>
+
+            <div class="modal-button">
+                🍖 Голод:
+                <b>${Math.floor(state.hunger)}</b>
+            </div>
+
+            <div class="modal-button">
+                💧 Жажда:
+                <b>${Math.floor(state.thirst)}</b>
+            </div>
+
+            <div class="modal-button">
+                ⚡ Энергия:
+                <b>${Math.floor(state.energy)}</b>
+            </div>
+
+            <div class="modal-button">
+                ☢️ Радиация:
+                <b>${Math.floor(state.radiation)}</b>
+            </div>
+
+            <div class="modal-button">
+                🔨 Построек:
+                <b>${state.structures.length}</b>
+            </div>
+
+        </div>
+
+        `
+
+    );
+
+};
+
+
+/* =========================================================
+   WEATHER
+========================================================= */
+
+function randomWeather(){
+
+    const weather = [
+
+        ["☀️ Ясно",24],
+
+        ["🌧️ Дождь",17],
+
+        ["🌫️ Туман",12],
+
+        ["⛈️ Гроза",14],
+
+        ["❄️ Холод",3],
+
+        ["🔥 Жара",31]
+
+    ];
+
+
+    const r =
+        weather[
+            Math.floor(
+                Math.random() *
+                weather.length
+            )
+        ];
+
+
+    state.weather =
+        r[0];
+
+    state.temperature =
+        r[1];
+
+
+    message(
+        "🌦️ Погода: " +
+        r[0]
+    );
+
+
+    update();
+
+}
+
+
+/* =========================================================
+   SURVIVAL LOOP
+========================================================= */
+
+setInterval(
+function(){
+
+    if(
+        !state.alive
+    )
+        return;
+
+
+    state.minutes += 5;
+
+
+    if(
+        state.minutes >= 1440
+    ){
+
+        state.minutes = 0;
+
+        state.day++;
+
+        message(
+            "🌅 Наступил новый день"
+        );
+
+    }
+
+
+    state.hunger =
+        Math.max(
+            0,
+            state.hunger - .15
+        );
+
+
+    state.thirst =
+        Math.max(
+            0,
+            state.thirst - .25
+        );
+
+
+    state.energy =
+        Math.max(
+            0,
+            state.energy - .08
+        );
+
+
+    if(
+        state.hunger <= 0 ||
+        state.thirst <= 0
+    ){
+
+        state.hp =
+            Math.max(
+                0,
+                state.hp - .5
+            );
+
+    }
+
+
+    if(
+        state.radiation > 0
+    ){
+
+        state.hp =
+            Math.max(
+                0,
+                state.hp -
+                state.radiation *
+                .003
+            );
+
+    }
+
+
+    if(
+        state.hp <= 0
+    ){
+
+        state.alive =
+            false;
+
+        message(
+            "☠️ Вы погибли"
+        );
+
+    }
+
+
+    /*
+       Каждые игровые 3 часа
+       меняем погоду.
+    */
+
+    if(
+        state.minutes % 180 === 0
+    ){
+
+        randomWeather();
+
+    }
+
+
+    update();
+    save();
+
+},
+1000
+);
 
 
 /* =========================================================
    TEST RADIATION
 ========================================================= */
 
-document
-    .getElementById(
-        "radiationTest"
-    )
-    .onclick =
-    () => {
+document.addEventListener(
+    "keydown",
+    function(e){
 
         if(
-            window.Survival
+            e.key.toLowerCase() === "b"
         ){
 
-            Survival.addRadiation(
-                15
-            );
+            $("buildBtn").click();
 
         }
-
-    };
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-document
-    .getElementById(
-        "inventoryNav"
-    )
-    .onclick =
-    () => {
-
-        openModal(
-
-            "🎒 ИНВЕНТАРЬ",
-
-            `
-
-            <div
-                style="
-                    display:grid;
-                    grid-template-columns:
-                    repeat(3,1fr);
-                    gap:6px;
-                "
-            >
-
-                <button
-                    class="inventory-item"
-                    data-eat="20"
-                >
-                    🍖
-                    <b>Еда</b>
-                </button>
-
-                <button
-                    class="inventory-item"
-                    data-drink="30"
-                >
-                    💧
-                    <b>Вода</b>
-                </button>
-
-                <button
-                    class="inventory-item"
-                    data-heal="25"
-                >
-                    🩹
-                    <b>Аптечка</b>
-                </button>
-
-            </div>
-
-            `
-
-        );
-
-
-        modalContent
-            .querySelectorAll(
-                "[data-eat]"
-            )
-            .forEach(
-                button => {
-
-                    button.onclick =
-                        () => {
-
-                            Survival.eat(
-                                Number(
-                                    button.dataset.eat
-                                )
-                            );
-
-                        };
-
-                }
-            );
-
-
-        modalContent
-            .querySelectorAll(
-                "[data-drink]"
-            )
-            .forEach(
-                button => {
-
-                    button.onclick =
-                        () => {
-
-                            Survival.drink(
-                                Number(
-                                    button.dataset.drink
-                                )
-                            );
-
-                        };
-
-                }
-            );
-
-
-        modalContent
-            .querySelectorAll(
-                "[data-heal]"
-            )
-            .forEach(
-                button => {
-
-                    button.onclick =
-                        () => {
-
-                            Survival.heal(
-                                Number(
-                                    button.dataset.heal
-                                )
-                            );
-
-                        };
-
-                }
-            );
-
-    };
-
-
-/* =========================================================
-   CRAFT
-========================================================= */
-
-document
-    .getElementById(
-        "craftNav"
-    )
-    .onclick =
-    () => {
-
-        openModal(
-
-            "🛠️ КРАФТ",
-
-            `
-
-            <div
-                style="
-                    display:grid;
-                    gap:6px;
-                "
-            >
-
-                <button
-                    class="action"
-                    data-craft="axe"
-                >
-                    🪓 Каменный топор
-                    <br>
-                    🪵 50 · 🪨 20
-                </button>
-
-                <button
-                    class="action"
-                    data-craft="pickaxe"
-                >
-                    ⛏️ Кирка
-                    <br>
-                    🪵 40 · 🪨 30
-                </button>
-
-                <button
-                    class="action"
-                    data-craft="campfire"
-                >
-                    🔥 Костёр
-                    <br>
-                    🪵 30 · 🪨 10
-                </button>
-
-            </div>
-
-            `
-
-        );
-
-
-        modalContent
-            .querySelectorAll(
-                "[data-craft]"
-            )
-            .forEach(
-                button => {
-
-                    button.onclick =
-                        () => {
-
-                            if(
-                                window.CraftingSystem
-                            ){
-
-                                if(
-                                    typeof CraftingSystem.craft ===
-                                    "function"
-                                ){
-
-                                    CraftingSystem.craft(
-                                        button.dataset.craft
-                                    );
-
-                                }
-                                else {
-
-                                    showToast(
-                                        "🛠️ Система крафта подключена"
-                                    );
-
-                                }
-
-                            }
-
-                        };
-
-                }
-            );
-
-    };
-
-
-/* =========================================================
-   BUILD
-========================================================= */
-
-document
-    .getElementById(
-        "buildNav"
-    )
-    .onclick =
-    () => {
-
-        const panel =
-            document.querySelector(
-                ".building-panel"
-            );
-
-
-        if(panel){
-
-            panel.scrollIntoView({
-                behavior:
-                    "smooth"
-            });
-
-        }
-
 
         if(
-            window.BuildingSystem
+            e.key.toLowerCase() === "r"
         ){
 
-            BuildingState.mode =
-                true;
+            $("rotate").click();
 
         }
-
-    };
-
-
-/* =========================================================
-   MAP
-========================================================= */
-
-document
-    .getElementById(
-        "mapNav"
-    )
-    .onclick =
-    () => {
-
-        openModal(
-
-            "🗺️ КАРТА",
-
-            `
-
-            <div
-                style="
-                    height:300px;
-                    border:1px solid #292929;
-                    border-radius:8px;
-                    position:relative;
-                    overflow:hidden;
-                    background:
-                    repeating-linear-gradient(
-                        0deg,
-                        #111 0 39px,
-                        #181818 40px
-                    );
-                "
-            >
-
-                <div
-                    style="
-                        position:absolute;
-                        left:50%;
-                        top:50%;
-                        transform:
-                        translate(-50%,-50%);
-                        font-size:28px;
-                    "
-                >
-                    📍
-                </div>
-
-                <div
-                    style="
-                        position:absolute;
-                        left:20%;
-                        top:25%;
-                        font-size:25px;
-                    "
-                >
-                    🌲
-                </div>
-
-                <div
-                    style="
-                        position:absolute;
-                        left:70%;
-                        top:35%;
-                        font-size:25px;
-                    "
-                >
-                    🏭
-                </div>
-
-                <div
-                    style="
-                        position:absolute;
-                        left:30%;
-                        top:70%;
-                        font-size:25px;
-                    "
-                >
-                    ⛺
-                </div>
-
-                <div
-                    style="
-                        position:absolute;
-                        left:75%;
-                        top:75%;
-                        font-size:25px;
-                    "
-                >
-                    ☢️
-                </div>
-
-            </div>
-
-            <br>
-
-            <small style="color:#777">
-                Исследуй территорию,
-                ищи ресурсы и опасные зоны.
-            </small>
-
-            `
-
-        );
-
-    };
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-document
-    .getElementById(
-        "statsNav"
-    )
-    .onclick =
-    () => {
-
-        const p =
-            player() || {};
-
-
-        openModal(
-
-            "👤 ПЕРСОНАЖ",
-
-            `
-
-            <div
-                style="
-                    display:grid;
-                    gap:7px;
-                "
-            >
-
-                <div>
-                    ❤️ Здоровье:
-                    <b>
-                        ${Math.floor(
-                            p.hp || 100
-                        )}
-                    </b>
-                </div>
-
-                <div>
-                    🍖 Голод:
-                    <b>
-                        ${Math.floor(
-                            p.hunger || 100
-                        )}
-                    </b>
-                </div>
-
-                <div>
-                    💧 Жажда:
-                    <b>
-                        ${Math.floor(
-                            p.thirst || 100
-                        )}
-                    </b>
-                </div>
-
-                <div>
-                    ⚡ Энергия:
-                    <b>
-                        ${Math.floor(
-                            p.energy || 100
-                        )}
-                    </b>
-                </div>
-
-                <div>
-                    ☢️ Радиация:
-                    <b>
-                        ${Math.floor(
-                            p.radiation || 0
-                        )}
-                    </b>
-                </div>
-
-                <div>
-                    ☠️ Смерти:
-                    <b>
-                        ${p.deaths || 0}
-                    </b>
-                </div>
-
-                <div>
-                    ⚔️ Убийства:
-                    <b>
-                        ${p.kills || 0}
-                    </b>
-                </div>
-
-            </div>
-
-            `
-
-        );
-
-    };
-
-
-/* =========================================================
-   GAME INITIALIZATION
-========================================================= */
-
-function initIndex(){
-
-    /*
-       Создаём базового игрока,
-       если game.js ещё не сделал его.
-    */
-
-    if(
-        !window.Game
-    ){
-
-        window.Game = {};
-
-    }
-
-
-    if(
-        !Game.player
-    ){
-
-        Game.player = {
-
-            hp:100,
-
-            maxHp:100,
-
-            hunger:100,
-
-            thirst:100,
-
-            energy:100,
-
-            maxEnergy:100,
-
-            radiation:0,
-
-            temperature:24,
-
-            alive:true,
-
-            deaths:0,
-
-            kills:0,
-
-            balance:1000,
-
-            wood:500,
-
-            stone:250,
-
-            metal:100,
-
-            scrap:0,
-
-            cloth:0,
-
-            sulfur:0,
-
-            leather:0,
-
-            components:0,
-
-            position:{
-
-                x:0,
-
-                y:0
-
-            }
-
-        };
-
-    }
-
-
-    /*
-       Начальные ресурсы,
-       если player.js их не создал.
-    */
-
-    const p =
-        Game.player;
-
-
-    p.wood =
-        Number(
-            p.wood ?? 500
-        );
-
-    p.stone =
-        Number(
-            p.stone ?? 250
-        );
-
-    p.metal =
-        Number(
-            p.metal ?? 100
-        );
-
-    p.balance =
-        Number(
-            p.balance ?? 1000
-        );
-
-
-    /*
-       Позиция.
-    */
-
-    if(
-        !p.position
-    ){
-
-        p.position = {
-
-            x:0,
-
-            y:0
-
-        };
-
-    }
-
-
-    updateUI();
-
-
-    /*
-       Генерируем тестовый лут.
-    */
-
-    setTimeout(
-        () => {
-
-            if(
-                window.LootSystem &&
-                LootState.containers.length === 0
-            ){
-
-                LootSystem.spawn(
-                    "crate",
-                    40,
-                    0
-                );
-
-                LootSystem.spawn(
-                    "barrel",
-                    -40,
-                    20
-                );
-
-                LootSystem.spawn(
-                    "military",
-                    80,
-                    -40
-                );
-
-            }
-
-        },
-        1000
-    );
-
-
-    showToast(
-        "🌲 WASTELAND готов. Выживание начинается."
-    );
-
-}
-
-
-/* =========================================================
-   SAVE
-========================================================= */
-
-function saveGame(){
-
-    try{
-
-        const p =
-            player();
-
-
-        if(!p)
-            return;
-
-
-        localStorage.setItem(
-            "wasteland_player",
-            JSON.stringify(
-                p
-            )
-        );
-
-
-    }
-    catch(error){
-
-        console.warn(
-            "Save error:",
-            error
-        );
-
-    }
-
-}
-
-
-window.saveGame =
-    saveGame;
-
-
-/* =========================================================
-   LOAD
-========================================================= */
-
-function loadGame(){
-
-    try{
-
-        const saved =
-            localStorage.getItem(
-                "wasteland_player"
-            );
-
-
-        if(!saved)
-            return false;
-
-
-        const data =
-            JSON.parse(
-                saved
-            );
-
 
         if(
-            !window.Game
+            e.key === "1"
         ){
 
-            window.Game = {};
+            eat();
 
         }
 
+        if(
+            e.key === "2"
+        ){
 
-        Game.player =
-            {
+            drink();
 
-                ...(Game.player || {}),
+        }
 
-                ...data
+        if(
+            e.key === "3"
+        ){
 
-            };
+            heal();
 
-
-        return true;
-
-    }
-    catch(error){
-
-        console.warn(
-            "Load error:",
-            error
-        );
-
-        return false;
+        }
 
     }
-
-}
-
-
-/* =========================================================
-   AUTO SAVE
-========================================================= */
-
-setInterval(
-    saveGame,
-    15000
 );
+
+
+/* =========================================================
+   TEST FUNCTIONS
+========================================================= */
+
+window.makeRain =
+function(){
+
+    state.weather =
+        "🌧️ Дождь";
+
+    state.temperature =
+        17;
+
+    message(
+        "🌧️ Начался дождь"
+    );
+
+    update();
+
+};
+
+
+window.makeStorm =
+function(){
+
+    state.weather =
+        "⛈️ Гроза";
+
+    state.temperature =
+        14;
+
+    message(
+        "⛈️ Началась гроза"
+    );
+
+    update();
+
+};
+
+
+window.makeFog =
+function(){
+
+    state.weather =
+        "🌫️ Туман";
+
+    state.temperature =
+        12;
+
+    message(
+        "🌫️ Опустился туман"
+    );
+
+    update();
+
+};
+
+
+window.makeHeat =
+function(){
+
+    state.weather =
+        "🔥 Жара";
+
+    state.temperature =
+        31;
+
+    message(
+        "🔥 Наступила жара"
+    );
+
+    update();
+
+};
+
+
+window.makeCold =
+function(){
+
+    state.weather =
+        "❄️ Холод";
+
+    state.temperature =
+        3;
+
+    message(
+        "❄️ Наступили холода"
+    );
+
+    update();
+
+};
+
+
+window.spawnCrate =
+function(){
+
+    message(
+        "📦 Рядом появился деревянный ящик"
+    );
+
+};
+
+
+window.spawnBarrel =
+function(){
+
+    message(
+        "🛢️ Рядом появилась бочка"
+    );
+
+};
+
+
+window.spawnMilitaryCrate =
+function(){
+
+    state.scrap += 10;
+    state.components += 3;
+
+    message(
+        "🪖 Военный ящик: +10 лома, +3 детали"
+    );
+
+    save();
+    update();
+
+};
 
 
 /* =========================================================
    START
 ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+load();
 
-        setTimeout(
-            () => {
+update();
 
-                loadGame();
-
-                initIndex();
-
-            },
-            800
-        );
-
-    }
+message(
+    "🌲 Добро пожаловать в WASTELAND"
 );
 
+message(
+    "🎒 Собирай ресурсы, крафти и строй базу"
+);
 
 </script>
 
-
 </body>
-
 </html>
