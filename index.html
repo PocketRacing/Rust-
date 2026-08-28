@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0b0d0e">
+<title>WASTELAND — Survival</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- =========================================================
+     GAME
+========================================================= -->
+
+<div id="game">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+        <div class="brand">
+            <span class="brand-mark">W</span>
+            <div>
+                <strong>WASTELAND</strong>
+                <small>SURVIVAL</small>
+            </div>
+        </div>
+
+        <div class="resources">
+
+            <div class="resource">
+                <span>❤️</span>
+                <b id="hp">100</b>
+            </div>
+
+            <div class="resource">
+                <span>🍖</span>
+                <b id="hunger">100</b>
+            </div>
+
+            <div class="resource">
+                <span>💧</span>
+                <b id="thirst">100</b>
+            </div>
+
+            <div class="resource">
+                <span>⚡</span>
+                <b id="energy">100</b>
+            </div>
+
+            <div class="resource radiation">
+                <span>☢️</span>
+                <b id="radiation">0</b>
+            </div>
+
+        </div>
+
+        <div class="currency">
+            <span>⚙️</span>
+            <b id="scrap">0</b>
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="layout">
+
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar">
+
+            <button class="nav active" data-screen="world">
+                <span>🗺️</span>
+                <label>Мир</label>
+            </button>
+
+            <button class="nav" data-screen="inventory">
+                <span>🎒</span>
+                <label>Инвентарь</label>
+            </button>
+
+            <button class="nav" data-screen="crafting">
+                <span>🔨</span>
+                <label>Крафт</label>
+            </button>
+
+            <button class="nav" data-screen="building">
+                <span>🏠</span>
+                <label>Строительство</label>
+            </button>
+
+            <button class="nav" data-screen="combat">
+                <span>⚔️</span>
+                <label>Бой</label>
+            </button>
+
+            <button class="nav" data-screen="loot">
+                <span>📦</span>
+                <label>Лут</label>
+            </button>
+
+            <button class="nav" data-screen="events">
+                <span>⚠️</span>
+                <label>События</label>
+            </button>
+
+            <div class="sidebar-bottom">
+
+                <button class="nav" data-screen="stats">
+                    <span>📊</span>
+                    <label>Статистика</label>
+                </button>
+
+                <button class="nav" id="saveButton">
+                    <span>💾</span>
+                    <label>Сохранить</label>
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONTENT -->
+        <section class="content">
+
+
+            <!-- =================================================
+                 WORLD
+            ================================================== -->
+
+            <section class="screen active" id="screen-world">
+
+                <div class="screen-header">
+
+                    <div>
+                        <span class="eyebrow">ТЕРРИТОРИЯ</span>
+                        <h1>Открытый мир</h1>
+                        <p>Исследуй территорию, собирай ресурсы и выживай.</p>
+                    </div>
+
+                    <div class="coordinates">
+                        <small>КООРДИНАТЫ</small>
+                        <b id="coordinates">X: 0 / Y: 0</b>
+                    </div>
+
+                </div>
+
+
+                <!-- MAP -->
+
+                <div class="world-map" id="worldMap">
+
+                    <div class="map-grid"></div>
+
+                    <div class="zone zone-forest">
+                        <span>🌲</span>
+                        <b>ЛЕС</b>
+                    </div>
+
+                    <div class="zone zone-city">
+                        <span>🏚️</span>
+                        <b>ГОРОД</b>
+                    </div>
+
+                    <div class="zone zone-factory">
+                        <span>🏭</span>
+                        <b>ЗАВОД</b>
+                    </div>
+
+                    <div class="zone zone-airfield">
+                        <span>✈️</span>
+                        <b>АЭРОДРОМ</b>
+                    </div>
+
+                    <div class="zone zone-rad">
+                        <span>☢️</span>
+                        <b>СТАНЦИЯ</b>
+                    </div>
+
+                    <div class="zone zone-coast">
+                        <span>🌊</span>
+                        <b>БЕРЕГ</b>
+                    </div>
+
+                    <div class="player-marker" id="playerMarker">
+                        👤
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="action-grid">
+
+                    <button class="action-card" id="gatherWood">
+                        <span>🪵</span>
+                        <strong>Собирать дерево</strong>
+                        <small>+10–25 дерева</small>
+                    </button>
+
+                    <button class="action-card" id="gatherStone">
+                        <span>🪨</span>
+                        <strong>Добывать камень</strong>
+                        <small>+8–20 камня</small>
+                    </button>
+
+                    <button class="action-card" id="gatherMetal">
+                        <span>⛓️</span>
+                        <strong>Искать металл</strong>
+                        <small>+3–12 металла</small>
+                    </button>
+
+                    <button class="action-card" id="hunt">
+                        <span>🐗</span>
+                        <strong>Охотиться</strong>
+                        <small>мясо / кожа</small>
+                    </button>
+
+                </div>
+
+
+                <!-- PLAYER STATUS -->
+
+                <div class="panel">
+
+                    <div class="panel-title">
+                        <span>Состояние персонажа</span>
+                        <small id="weather">☀️ Ясно</small>
+                    </div>
+
+                    <div class="status-bars">
+
+                        <div class="status">
+                            <div>
+                                <span>Здоровье</span>
+                                <b id="hpText">100 / 100</b>
+                            </div>
+                            <div class="bar">
+                                <i id="hpBar"></i>
+                            </div>
+                        </div>
+
+                        <div class="status">
+                            <div>
+                                <span>Голод</span>
+                                <b id="hungerText">100 / 100</b>
+                            </div>
+                            <div class="bar">
+                                <i id="hungerBar"></i>
+                            </div>
+                        </div>
+
+                        <div class="status">
+                            <div>
+                                <span>Жажда</span>
+                                <b id="thirstText">100 / 100</b>
+                            </div>
+                            <div class="bar">
+                                <i id="thirstBar"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 INVENTORY
+            ================================================== -->
+
+            <section class="screen" id="screen-inventory">
+
+                <div class="screen-header">
+                    <div>
+                        <span class="eyebrow">СНАРЯЖЕНИЕ</span>
+                        <h1>Инвентарь</h1>
+                        <p>Твои предметы и экипировка.</p>
+                    </div>
+
+                    <div class="weight">
+                        <span>ВЕС</span>
+                        <b id="weight">0 / 50 кг</b>
+                    </div>
+                </div>
+
+
+                <div class="inventory-layout">
+
+                    <div class="equipment panel">
+
+                        <div class="panel-title">
+                            <span>Экипировка</span>
+                        </div>
+
+                        <div class="equipment-slots">
+
+                            <div class="equip-slot" data-slot="head">
+                                <span>🪖</span>
+                                <small>Голова</small>
+                            </div>
+
+                            <div class="equip-slot" data-slot="body">
+                                <span>🦺</span>
+                                <small>Тело</small>
+                            </div>
+
+                            <div class="equip-slot" data-slot="weapon">
+                                <span>🔫</span>
+                                <small>Оружие</small>
+                            </div>
+
+                            <div class="equip-slot" data-slot="back">
+                                <span>🎒</span>
+                                <small>Рюкзак</small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="inventory panel">
+
+                        <div class="panel-title">
+                            <span>Предметы</span>
+                            <small id="inventoryCount">0 / 24</small>
+                        </div>
+
+                        <div class="inventory-grid" id="inventoryGrid">
+
+                            <!-- JS создаст предметы -->
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CRAFTING
+            ================================================== -->
+
+            <section class="screen" id="screen-crafting">
+
+                <div class="screen-header">
+
+                    <div>
+                        <span class="eyebrow">ПРОИЗВОДСТВО</span>
+                        <h1>Крафт</h1>
+                        <p>Создавай предметы из найденных ресурсов.</p>
+                    </div>
+
+                    <div class="bench-level">
+                        <span>ВЕРСТАК</span>
+                        <b id="benchLevel">I</b>
+                    </div>
+
+                </div>
+
+
+                <div class="crafting-layout">
+
+                    <div class="craft-categories">
+
+                        <button class="craft-category active" data-category="tools">
+                            🔨 Инструменты
+                        </button>
+
+                        <button class="craft-category" data-category="weapons">
+                            🔫 Оружие
+                        </button>
+
+                        <button class="craft-category" data-category="building">
+                            🏠 Строительство
+                        </button>
+
+                        <button class="craft-category" data-category="survival">
+                            🩹 Выживание
+                        </button>
+
+                    </div>
+
+
+                    <div class="recipes" id="recipes">
+
+                        <!-- JS -->
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 BUILDING
+            ================================================== -->
+
+            <section class="screen" id="screen-building">
+
+                <div class="screen-header">
+
+                    <div>
+                        <span class="eyebrow">БАЗА</span>
+                        <h1>Строительство</h1>
+                        <p>Построй убежище и защити свои ресурсы.</p>
+                    </div>
+
+                    <div class="base-level">
+                        <span>БАЗА</span>
+                        <b id="baseLevel">Уровень 1</b>
+                    </div>
+
+                </div>
+
+
+                <div class="building-area">
+
+                    <div class="base-preview" id="basePreview">
+
+                        <div class="base-foundation">
+                            <div class="base-wall wall-1"></div>
+                            <div class="base-wall wall-2"></div>
+                            <div class="base-wall wall-3"></div>
+                            <div class="base-door">🚪</div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="building-controls panel">
+
+                        <div class="panel-title">
+                            <span>Строительство</span>
+                        </div>
+
+                        <button class="build-button" data-build="foundation">
+                            <span>▦</span>
+                            <div>
+                                <b>Фундамент</b>
+                                <small>100 🪵</small>
+                            </div>
+                        </button>
+
+                        <button class="build-button" data-build="wall">
+                            <span>▤</span>
+                            <div>
+                                <b>Стена</b>
+                                <small>100 🪵</small>
+                            </div>
+                        </button>
+
+                        <button class="build-button" data-build="door">
+                            <span>🚪</span>
+                            <div>
+                                <b>Дверь</b>
+                                <small>75 🪵</small>
+                            </div>
+                        </button>
+
+                        <button class="build-button" data-build="chest">
+                            <span>📦</span>
+                            <div>
+                                <b>Сундук</b>
+                                <small>150 🪵</small>
+                            </div>
+                        </button>
+
+                        <button class="build-button" data-build="furnace">
+                            <span>🔥</span>
+                            <div>
+                                <b>Печь</b>
+                                <small>200 🪨</small>
+                            </div>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 COMBAT
+            ================================================== -->
+
+            <section class="screen" id="screen-combat">
+
+                <div class="screen-header">
+
+                    <div>
+                        <span class="eyebrow">ОПАСНОСТЬ</span>
+                        <h1>Бой</h1>
+                        <p>Сражайся с противниками и защищай свою добычу.</p>
+                    </div>
+
+                    <div class="enemy-state">
+                        <span>УГРОЗА</span>
+                        <b id="enemyThreat">Низкая</b>
+                    </div>
+
+                </div>
+
+
+                <div class="combat-area">
+
+                    <div class="enemy-card panel">
+
+                        <div class="enemy-avatar" id="enemyAvatar">
+                            🐺
+                        </div>
+
+                        <div class="enemy-info">
+
+                            <span>ПРОТИВНИК</span>
+
+                            <h2 id="enemyName">Дикий волк</h2>
+
+                            <div class="enemy-health">
+                                <div class="bar">
+                                    <i id="enemyBar"></i>
+                                </div>
+                                <b id="enemyHp">60 / 60</b>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="combat-log panel" id="combatLog">
+
+                        <div>Ты вошёл в опасную зону.</div>
+
+                    </div>
+
+
+                    <div class="combat-actions">
+
+                        <button class="combat-button primary" id="attackButton">
+                            ⚔️ АТАКОВАТЬ
+                        </button>
+
+                        <button class="combat-button" id="healButton">
+                            🩹 ЛЕЧИТЬСЯ
+                        </button>
+
+                        <button class="combat-button" id="runButton">
+                            🏃 БЕЖАТЬ
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 LOOT
+            ================================================== -->
+
+            <section class="screen" id="screen-loot">
+
+                <div class="screen-header">
+
+                    <div>
+                        <span class="eyebrow">ДОБЫЧА</span>
+                        <h1>Лут</h1>
+                        <p>Исследуй найденные контейнеры и забирай содержимое.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="loot-container panel">
+
+                    <div class="loot-image">
+                        📦
+                    </div>
+
+                    <div class="loot-info">
+
+                        <span>НАЙДЕННЫЙ КОНТЕЙНЕР</span>
+
+                        <h2 id="lootTitle">Старый ящик</h2>
+
+                        <div class="loot-items" id="lootItems">
+
+                            <div>🧵 Ткань × 12</div>
+                            <div>🔩 Компонент × 4</div>
+                            <div>⚙️ Scrap × 25</div>
+
+                        </div>
+
+                        <button class="primary-button" id="takeLoot">
+                            ЗАБРАТЬ ВСЁ
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 EVENTS
+            ================================================== -->
+
+            <section class="screen" id="screen-events">
+
+                <div class="screen-header">
+
+                    <div>
+                        <span class="eyebrow">МИР</span>
+                        <h1>События</h1>
+                        <p>Следи за происходящим на территории.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="events-list" id="eventsList">
+
+                    <div class="event-card">
+                        <span>📡</span>
+                        <div>
+                            <b>Система</b>
+                            <p>Добро пожаловать в Wasteland.</p>
+                            <small>только что</small>
+                        </div>
+                    </div>
+
+                    <div class="event-card warning">
+                        <span>☢️</span>
+                        <div>
+                            <b>Радиационная зона</b>
+                            <p>На северо-востоке обнаружен повышенный уровень радиации.</p>
+                            <small>10 минут назад</small>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <span>✈️</span>
+                        <div>
+                            <b>Воздушный груз</b>
+                            <p>В регионе замечен самолёт.</p>
+                            <small>18 минут назад</small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 STATS
+            ================================================== -->
+
+            <section class="screen" id="screen-stats">
+
+                <div class="screen-header">
+
+                    <div>
+                        <span class="eyebrow">ПРОФИЛЬ</span>
+                        <h1>Статистика</h1>
+                        <p>История твоего выживания.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <span>🌲</span>
+                        <small>ДЕРЕВА СОБРАНО</small>
+                        <b id="statWood">0</b>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>🪨</span>
+                        <small>КАМНЯ ДОБЫТО</small>
+                        <b id="statStone">0</b>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>🔫</span>
+                        <small>УБИЙСТВ</small>
+                        <b id="statKills">0</b>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>🏠</span>
+                        <small>ПОСТРОЕНО</small>
+                        <b id="statBuilds">0</b>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>📦</span>
+                        <small>КОНТЕЙНЕРОВ</small>
+                        <b id="statLoot">0</b>
+                    </div>
+
+                    <div class="stat-card">
+                        <span>⏱️</span>
+                        <small>ВРЕМЯ ВЫЖИВАНИЯ</small>
+                        <b id="statTime">00:00</b>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         MOBILE NAVIGATION
+    ========================================================== -->
+
+    <nav class="mobile-nav">
+
+        <button class="mobile-nav-button active" data-screen="world">
+            <span>🗺️</span>
+            <small>Мир</small>
+        </button>
+
+        <button class="mobile-nav-button" data-screen="inventory">
+            <span>🎒</span>
+            <small>Рюкзак</small>
+        </button>
+
+        <button class="mobile-nav-button" data-screen="crafting">
+            <span>🔨</span>
+            <small>Крафт</small>
+        </button>
+
+        <button class="mobile-nav-button" data-screen="building">
+            <span>🏠</span>
+            <small>База</small>
+        </button>
+
+        <button class="mobile-nav-button" data-screen="combat">
+            <span>⚔️</span>
+            <small>Бой</small>
+        </button>
+
+    </nav>
+
+
+    <!-- =========================================================
+         TOAST
+    ========================================================== -->
+
+    <div id="toast" class="toast"></div>
+
+
+    <!-- =========================================================
+         GAME SCRIPTS
+         
+         Все системы подключаются отдельно.
+    ========================================================== -->
+
+    <script src="save.js"></script>
+    <script src="player.js"></script>
+    <script src="inventory.js"></script>
+    <script src="crafting.js"></script>
+    <script src="building.js"></script>
+    <script src="combat.js"></script>
+    <script src="map.js"></script>
+    <script src="loot.js"></script>
+    <script src="events.js"></script>
+    <script src="game.js"></script>
+
+</body>
+</html>
